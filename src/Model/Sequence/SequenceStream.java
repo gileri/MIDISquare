@@ -6,7 +6,13 @@ import javax.sound.midi.Sequence;
 
 public abstract class SequenceStream {
 	protected Sequence sequence;
+	protected int tempo;
+	
 	public Sequence getSequence() {
 		return sequence;
+	}
+	
+	public int getTempo() {
+		return tempo;
 	}
 }

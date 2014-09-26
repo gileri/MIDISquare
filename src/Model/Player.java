@@ -2,28 +2,27 @@ package Model;
 
 import java.net.URI;
 
+import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Sequencer;
 
-import Model.Sequence.SequenceStream;
 import Model.Sequence.SequenceStreamFactory;
+import Model.Sequence.SequenceStreamInterface;
 
 public class Player {
 	
 	private Sequencer sequencer;
-	private SequenceStream sequence;
+	private SequenceStreamInterface sequence;
 	
 	
 	public Player()
 	{
 		try {
 			sequencer = MidiSystem.getSequencer();
-			sequencer.open();
 		} catch(MidiUnavailableException e) {
 			e.printStackTrace();
 		}
-		
 	}
 	
 	public void play()
@@ -32,6 +31,25 @@ public class Player {
 			System.err.println("Aucune séquence sélectionnée");
 			return;
 		}
+		try {
+			sequencer.open();
+			sequencer.setSequence(sequence.getSequence());
+			sequencer.setTempoInBPM(sequence.getTempo());
+			sequencer.start();
+		} catch (InvalidMidiDataException e) {
+			System.err.println("Error in MIDI file");
+			e.printStackTrace();
+		} catch (MidiUnavailableException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void pause() {
+		if(sequencer.isRunning())
+			sequencer.stop();
+		else
+			sequencer.start();
 	}
 	
 	public void stop()
@@ -40,13 +58,14 @@ public class Player {
 			System.err.println("Aucune séquence sélectionnée");
 			return;
 		}
+		sequencer.stop();
+		sequencer.close();
+		this.sequence = null;
 	}
 	
 	public void loadSequenceFromUri(URI uri)
 	{
-		SequenceStreamFactory.getInstance().loadSequenceFromUri(uri);
+		this.sequence = SequenceStreamFactory.getInstance().loadSequenceFromUri(uri);
 	}
-	
-	
 
 }
