@@ -2,22 +2,26 @@ package Model.Sequence;
 
 import java.net.URI;
 
+/**
+ * Instancie la "bonne" classe dérivée de SequenceStream
+ *
+ */
 public class SequenceStreamFactory {
-	
+
 	private static SequenceStreamFactory sequenceStreamFactory;
-	
-	public static SequenceStreamFactory getInstance()
-	{
-		if(sequenceStreamFactory==null) 
+
+	public static SequenceStreamFactory getInstance() {
+		if (sequenceStreamFactory == null)
 			sequenceStreamFactory = new SequenceStreamFactory();
-		
+
 		return sequenceStreamFactory;
 	}
-	
-	public SequenceStreamInterface loadSequenceFromUri(URI uri)
-	{
-		System.out.println(uri);
-		
+
+	/**
+	 * Instancie la bonne classe dérivée de SequenceStream en fonction du schema
+	 * de l'URI.
+	 */
+	public SequenceStreamInterface loadSequenceFromUri(URI uri) {
 		switch (uri.getScheme()) {
 		case "file":
 			return new SequenceStreamFile(uri.getPath());

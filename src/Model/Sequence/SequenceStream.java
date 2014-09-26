@@ -1,9 +1,11 @@
 package Model.Sequence;
 
-import java.net.URI;
-
 import javax.sound.midi.Sequence;
 
+/**
+ * Représente une Sequence, ainsi que son tempo
+ * 
+ */
 public abstract class SequenceStream {
 	protected Sequence sequence;
 	protected int tempo;

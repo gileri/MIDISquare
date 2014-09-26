@@ -1,13 +1,11 @@
 package Model;
 
 import java.net.URI;
+import java.util.ArrayList;
 
 import javax.sound.midi.InvalidMidiDataException;
-import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Sequencer;
-
-import java.util.ArrayList;
 
 import Model.Sequence.SequenceStreamFactory;
 import Model.Sequence.SequenceStreamInterface;
@@ -26,10 +24,9 @@ public class Player implements Model.Observable {
 //			e.printStackTrace();
 //		}
 	}
-	
-	public void play()
-	{
-		if(sequence==null) {
+
+	public void play() {
+		if (sequence == null) {
 			System.err.println("Aucune séquence sélectionnée");
 			return;
 		}
@@ -46,18 +43,17 @@ public class Player implements Model.Observable {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void pause() {
-		if(sequencer.isRunning())
+		if (sequencer.isRunning())
 			sequencer.stop();
-		else if(sequencer.isOpen()){
+		else if (sequencer.isOpen()) {
 			sequencer.start();
 		}
 	}
-	
-	public void stop()
-	{
-		if(sequence==null) {
+
+	public void stop() {
+		if (sequence == null) {
 			System.err.println("Aucune séquence sélectionnée");
 			return;
 		}
@@ -65,10 +61,14 @@ public class Player implements Model.Observable {
 		sequencer.close();
 		this.sequence = null;
 	}
-	
-	public void loadSequenceFromUri(URI uri)
-	{
-		this.sequence = SequenceStreamFactory.getInstance().loadSequenceFromUri(uri);
+
+	/**
+	 * Récupère la séquence à l'URI passée en paramètre en utilisant la SequenceStreamFactory 
+	 * @param uri URI correspondant à la séquence
+	 */
+	public void loadSequenceFromUri(URI uri) {
+		this.sequence = SequenceStreamFactory.getInstance()
+				.loadSequenceFromUri(uri);
 	}
 
 	@Override
