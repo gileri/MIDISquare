@@ -7,22 +7,25 @@ import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Sequencer;
 
+import java.util.ArrayList;
+import java.util.Observable;
+
 import Model.Sequence.SequenceStreamFactory;
 import Model.Sequence.SequenceStreamInterface;
 
-public class Player {
+public class Player implements Model.Observable {
 	
 	private Sequencer sequencer;
 	private SequenceStreamInterface sequence;
-	
+	private ArrayList<Observer> listObserver = new ArrayList<Observer>();
 	
 	public Player()
 	{
-		try {
-			sequencer = MidiSystem.getSequencer();
-		} catch(MidiUnavailableException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			sequencer = MidiSystem.getSequencer();
+//		} catch(MidiUnavailableException e) {
+//			e.printStackTrace();
+//		}
 	}
 	
 	public void play()
@@ -40,7 +43,7 @@ public class Player {
 			System.err.println("Error in MIDI file");
 			e.printStackTrace();
 		} catch (MidiUnavailableException e) {
-			// TODO Auto-generated catch block
+			System.err.println("MIDI unavailable");
 			e.printStackTrace();
 		}
 	}
@@ -68,4 +71,22 @@ public class Player {
 		this.sequence = SequenceStreamFactory.getInstance().loadSequenceFromUri(uri);
 	}
 
+	@Override
+	public void addObserver(Observer obs) {
+		this.listObserver.add(obs);
+		
+	}
+
+	@Override
+	public void removeObserver(Observer obs) {
+		this.listObserver.remove(obs);
+		
+	}
+
+	@Override
+	public void notifyObserver() {
+		for (Observer o : listObserver) {
+			o.update();
+		}
+	}
 }
