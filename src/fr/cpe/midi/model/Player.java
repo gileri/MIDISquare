@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.ArrayList;
 
 import javax.sound.midi.InvalidMidiDataException;
+import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Sequencer;
 
@@ -18,11 +19,11 @@ public class Player implements fr.cpe.midi.model.Observable {
 	
 	public Player()
 	{
-//		try {
-//			sequencer = MidiSystem.getSequencer();
-//		} catch(MidiUnavailableException e) {
-//			e.printStackTrace();
-//		}
+		try {
+			sequencer = MidiSystem.getSequencer();
+		} catch(MidiUnavailableException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void play() {
