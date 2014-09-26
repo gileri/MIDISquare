@@ -1,4 +1,4 @@
-package fr.cpe.midisquare;
+package Model;
 /**
  * @author Kathy Sierra, Bert Bates : "Java Tête la Première" 
  * Mise en forme des commentaires Françoise PERRIN
@@ -24,6 +24,7 @@ package fr.cpe.midisquare;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.File;
 
 import javax.sound.midi.ControllerEventListener;
 import javax.sound.midi.MidiEvent;
@@ -71,7 +72,7 @@ public class MidiExample {
 
 
 			// créer une séquence et une piste
-			Sequence seq = new Sequence(Sequence.PPQ, 4);
+			Sequence seq = MidiSystem.getSequence(new File("./src/nb.mid"));
 			Track piste = seq.createTrack();
 
 			// maintenant créer deux événements midi (contenant un message midi)
