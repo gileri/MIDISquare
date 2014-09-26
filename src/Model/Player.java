@@ -8,7 +8,6 @@ import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Sequencer;
 
 import java.util.ArrayList;
-import java.util.Observable;
 
 import Model.Sequence.SequenceStreamFactory;
 import Model.Sequence.SequenceStreamInterface;
@@ -43,7 +42,7 @@ public class Player implements Model.Observable {
 			System.err.println("Error in MIDI file");
 			e.printStackTrace();
 		} catch (MidiUnavailableException e) {
-			System.err.println("MIDI unavailable");
+			System.err.println("MIDI device is not available");
 			e.printStackTrace();
 		}
 	}
@@ -51,8 +50,9 @@ public class Player implements Model.Observable {
 	public void pause() {
 		if(sequencer.isRunning())
 			sequencer.stop();
-		else
+		else if(sequencer.isOpen()){
 			sequencer.start();
+		}
 	}
 	
 	public void stop()
