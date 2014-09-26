@@ -1,4 +1,4 @@
-package Model.Sequence;
+package fr.cpe.midi.model.sequence;
 
 /**
  * TODO

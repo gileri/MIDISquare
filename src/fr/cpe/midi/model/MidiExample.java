@@ -1,4 +1,4 @@
-package Model;
+package fr.cpe.midi.model;
 /**
  * @author Kathy Sierra, Bert Bates : "Java Tête la Première" 
  * Mise en forme des commentaires Françoise PERRIN

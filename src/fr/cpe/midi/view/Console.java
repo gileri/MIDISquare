@@ -1,10 +1,10 @@
-package View;
+package fr.cpe.midi.view;
 
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import Model.Player;
+import fr.cpe.midi.model.Player;
 
 public class Console {
 	

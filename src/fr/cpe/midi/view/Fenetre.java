@@ -1,4 +1,4 @@
-package View;
+package fr.cpe.midi.view;
 
 import javax.swing.JFrame;
 

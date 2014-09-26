@@ -1,4 +1,4 @@
-package Model;
+package fr.cpe.midi.model;
 
 public interface Observable {
 	  public void addObserver(Observer obs);

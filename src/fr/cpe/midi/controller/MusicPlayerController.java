@@ -1,9 +1,9 @@
-package Controller;
+package fr.cpe.midi.controller;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import Model.Player;
+import fr.cpe.midi.model.Player;
 
 public class MusicPlayerController {
 	

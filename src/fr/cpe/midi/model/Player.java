@@ -1,4 +1,4 @@
-package Model;
+package fr.cpe.midi.model;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -7,10 +7,10 @@ import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Sequencer;
 
-import Model.Sequence.SequenceStreamFactory;
-import Model.Sequence.SequenceStreamInterface;
+import fr.cpe.midi.model.sequence.SequenceStreamFactory;
+import fr.cpe.midi.model.sequence.SequenceStreamInterface;
 
-public class Player implements Model.Observable {
+public class Player implements fr.cpe.midi.model.Observable {
 	
 	private Sequencer sequencer;
 	private SequenceStreamInterface sequence;
