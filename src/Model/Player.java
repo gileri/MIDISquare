@@ -40,7 +40,7 @@ public class Player {
 			System.err.println("Error in MIDI file");
 			e.printStackTrace();
 		} catch (MidiUnavailableException e) {
-			// TODO Auto-generated catch block
+			System.err.println("MIDI device is not available");
 			e.printStackTrace();
 		}
 	}
@@ -48,8 +48,9 @@ public class Player {
 	public void pause() {
 		if(sequencer.isRunning())
 			sequencer.stop();
-		else
+		else if(sequencer.isOpen()){
 			sequencer.start();
+		}
 	}
 	
 	public void stop()
