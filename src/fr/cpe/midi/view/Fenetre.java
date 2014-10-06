@@ -38,8 +38,7 @@ public class Fenetre extends JFrame implements Observer {
 
 	private MusicPlayerController controler;
 
-	public Fenetre(MusicPlayerController controler) {
-		this.controler = controler;
+	public Fenetre() {
 		this.setTitle("Music player");
 		this.setSize(800, 600);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -73,11 +72,8 @@ public class Fenetre extends JFrame implements Observer {
 		topContainer.add(playPauseButton);
 		topContainer.add(stopButton);
 
-		Visualization v = new Visualization();
-		controler.addListener(v);
-
 		container.add(topContainer, BorderLayout.NORTH);
-		container.add(v, BorderLayout.CENTER);
+		
 	}
 
 	@Override
@@ -151,5 +147,12 @@ public class Fenetre extends JFrame implements Observer {
 	public void controlChange(ShortMessage event) {
 		// TODO Auto-generated method stub
 
+	}
+
+	public void setController(MusicPlayerController c) {
+		this.controler = c;
+		Visualization v = new Visualization();
+		controler.addListener(v);
+		container.add(v, BorderLayout.CENTER);
 	}
 }

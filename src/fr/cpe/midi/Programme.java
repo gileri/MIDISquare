@@ -13,9 +13,10 @@ public class Programme {
 	public static void main(String[] args) throws URISyntaxException {
 		Player p;
 		try {
+			Fenetre f = new Fenetre();
 			p = Player.getInstance();
 			MusicPlayerController m = new MusicPlayerController(p);
-			Fenetre f = new Fenetre(m);
+			f.setController(m);
 		} catch (MidiUnavailableException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
