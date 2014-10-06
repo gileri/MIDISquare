@@ -9,6 +9,7 @@ import javax.sound.midi.Track;
 public class SequenceStreamRandom extends SequenceStream implements
 		SequenceStreamInterface {
 	public SequenceStreamRandom() {
+		description = "Random song";
 		try {
 			sequence = new Sequence(Sequence.PPQ, 4);
 			Track piste = sequence.createTrack();

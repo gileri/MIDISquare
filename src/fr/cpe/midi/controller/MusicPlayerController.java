@@ -33,4 +33,17 @@ public class MusicPlayerController {
 			e.printStackTrace();
 		}
 	}
+	
+	public boolean canPlaySomething() {
+		return (player.getSequence()!=null);
+	}
+	
+	public boolean isPlaying() {
+		return player.isRunning();
+	}
+	
+	public void clearPlayer()
+	{
+		player.stop();
+	}
 }

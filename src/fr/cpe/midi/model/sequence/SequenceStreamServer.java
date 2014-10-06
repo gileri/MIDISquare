@@ -9,7 +9,7 @@ public class SequenceStreamServer extends SequenceStream implements
 		SequenceStreamInterface {
 
 	public SequenceStreamServer(String path) {
-		
+		description = "Server song";
 	}
 
 }

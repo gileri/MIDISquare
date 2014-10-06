@@ -16,50 +16,61 @@ public class Player implements fr.cpe.midi.model.Observable {
 	private Sequencer sequencer;
 	private SequenceStreamInterface sequence;
 	private ArrayList<Observer> listObserver = new ArrayList<Observer>();
+	protected String status;
 	
-	public Player()
-	{
-		try {
-			sequencer = MidiSystem.getSequencer();
-		} catch(MidiUnavailableException e) {
-			e.printStackTrace();
-		}
+	public Player() {
+		status = "Waiting for a song";
 	}
 
 	public void play() {
 		if (sequence == null) {
-			System.err.println("Aucune séquence sélectionnée");
+//			System.err.println("Aucune séquence sélectionnée");
 			return;
 		}
-		try {
-			sequencer.open();
-			sequencer.setSequence(sequence.getSequence());
-			sequencer.setTempoInBPM(sequence.getTempo());
-			sequencer.start();
-		} catch (InvalidMidiDataException e) {
-			System.err.println("Error in MIDI file");
-			e.printStackTrace();
-		} catch (MidiUnavailableException e) {
-			System.err.println("MIDI device is not available");
-			e.printStackTrace();
+		if(sequencer==null) {
+			try {
+				sequencer = MidiSystem.getSequencer();
+				sequencer.open();
+				sequencer.setSequence(sequence.getSequence());
+				sequencer.setTempoInBPM(sequence.getTempo());
+				this.status = "Current song : "+sequence.getDescription();
+			} catch (InvalidMidiDataException e) {
+				System.err.println("Error in MIDI file");
+				e.printStackTrace();
+			} catch (MidiUnavailableException e) {
+				System.err.println("MIDI device is not available");
+				e.printStackTrace();
+			}
 		}
+		
+		sequencer.start();
+
+	}
+
+	public SequenceStreamInterface getSequence() {
+		return sequence;
 	}
 
 	public void pause() {
-		if (sequencer.isRunning())
-			sequencer.stop();
-		else if (sequencer.isOpen()) {
-			sequencer.start();
-		}
+		sequencer.stop();
+	}
+	
+	public boolean isRunning() {
+		if(sequencer!=null)
+			return sequencer.isRunning();
+		return false;
 	}
 
 	public void stop() {
 		if (sequence == null) {
-			System.err.println("Aucune séquence sélectionnée");
+//			System.err.println("Aucune séquence sélectionnée");
 			return;
 		}
-		sequencer.stop();
-		sequencer.close();
+		if(sequencer != null) {
+			sequencer.stop();
+			sequencer.close();	
+			sequencer = null;
+		}
 		this.sequence = null;
 	}
 

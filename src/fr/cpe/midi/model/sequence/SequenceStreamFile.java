@@ -11,6 +11,7 @@ public class SequenceStreamFile extends SequenceStream implements
 
 	public SequenceStreamFile(String path) {
 		try {
+			description = path;
 			sequence = MidiSystem.getSequence(new File(path));
 			this.tempo = 120;
 		} catch (IOException e) {
