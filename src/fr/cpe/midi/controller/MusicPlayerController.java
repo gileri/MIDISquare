@@ -8,12 +8,13 @@ import javax.sound.midi.MidiUnavailableException;
 
 import fr.cpe.midi.model.Observer;
 import fr.cpe.midi.model.Player;
+import fr.cpe.midi.model.PlayerObservable;
 
 public class MusicPlayerController {
 
-	private Player player;
+	private PlayerObservable player;
 
-	public MusicPlayerController(Player player) {
+	public MusicPlayerController(PlayerObservable player) {
 		this.player = player;
 	}
 
@@ -40,7 +41,7 @@ public class MusicPlayerController {
 	}
 
 	public boolean canPlaySomething() {
-		return (player.getSequence() != null);
+		return (player.canPlaySomething());
 	}
 
 	public boolean isPlaying() {

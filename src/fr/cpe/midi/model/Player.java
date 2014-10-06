@@ -11,12 +11,11 @@ import javax.sound.midi.Sequencer;
 import fr.cpe.midi.model.sequence.SequenceStreamFactory;
 import fr.cpe.midi.model.sequence.SequenceStreamInterface;
 
-public class Player implements fr.cpe.midi.model.Observable {
+public class Player implements PlayerInterface {
 
 	private static Player player;
 	private Sequencer sequencer;
 	private SequenceStreamInterface sequence;
-	private ArrayList<Observer> listObserver = new ArrayList<Observer>();
 	protected String status;
 
 	// DP Singleton
@@ -74,22 +73,14 @@ public class Player implements fr.cpe.midi.model.Observable {
 		this.sequence = SequenceStreamFactory.getInstance()
 				.loadSequenceFromUri(uri);
 	}
-
-	@Override
-	public void addObserver(Observer obs) {
-		sequencer.addControllerEventListener(obs, new int[] { 127 });
-		this.listObserver.add(obs);
+	
+	public Sequencer getSequencer() {
+		return sequencer;
 	}
 
-	@Override
-	public void removeObserver(Observer obs) {
-		this.listObserver.remove(obs);
+	public boolean canPlaySomething() {
+		return (sequence!=null);
 	}
 
-	@Override
-	public void notifyObserver() {
-		for (Observer o : listObserver) {
-			o.update();
-		}
-	}
+
 }
