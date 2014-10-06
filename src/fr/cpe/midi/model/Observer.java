@@ -1,5 +1,7 @@
 package fr.cpe.midi.model;
 
-public interface Observer {
-	  public void update();
+import javax.sound.midi.ControllerEventListener;
+
+public interface Observer extends ControllerEventListener {
+	public void update();
 }

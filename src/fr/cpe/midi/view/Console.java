@@ -4,10 +4,13 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import javax.sound.midi.InvalidMidiDataException;
+import javax.sound.midi.MidiUnavailableException;
+
 import fr.cpe.midi.model.Player;
 
 public class Console {
-	
+
 	private static void commandInterpreter(Player p) {
 		try {
 			char c = (char) System.in.read();
@@ -24,9 +27,8 @@ public class Console {
 	}
 
 	public static void main(String[] args) {
-		
-		Player player = new Player();
 		try {
+			Player player = Player.getInstance();
 			player.loadSequenceFromUri(new URI(args[0]));
 			player.play();
 			while (true) {
@@ -36,6 +38,10 @@ public class Console {
 			System.err.println("Wrong URI");
 			System.err.println("Pass a correct URI as first parameter");
 			System.exit(1);
+		} catch (MidiUnavailableException e) {
+			e.printStackTrace();
+		} catch (InvalidMidiDataException e) {
+			e.printStackTrace();
 		}
 
 	}

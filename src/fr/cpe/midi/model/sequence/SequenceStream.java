@@ -10,15 +10,15 @@ public abstract class SequenceStream {
 	protected Sequence sequence;
 	protected String description;
 	protected int tempo;
-	
+
 	public Sequence getSequence() {
 		return sequence;
 	}
-	
+
 	public int getTempo() {
 		return tempo;
 	}
-	
+
 	public String getDescription() {
 		return description;
 	}
