@@ -6,6 +6,9 @@ import javax.sound.midi.Sequence;
 import javax.sound.midi.ShortMessage;
 import javax.sound.midi.Track;
 
+import fr.cpe.midi.model.SequenceStream;
+import fr.cpe.midi.model.SequenceStreamInterface;
+
 public class SequenceStreamRandom extends SequenceStream implements
 		SequenceStreamInterface {
 	public static final String SCHEME = "random";

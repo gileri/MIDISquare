@@ -6,6 +6,9 @@ import java.io.IOException;
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiSystem;
 
+import fr.cpe.midi.model.SequenceStream;
+import fr.cpe.midi.model.SequenceStreamInterface;
+
 /**
  * TODO Class loading a sequence from a remote server
  *

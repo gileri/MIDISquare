@@ -7,6 +7,9 @@ import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.Sequence;
 
+import fr.cpe.midi.model.SequenceStream;
+import fr.cpe.midi.model.SequenceStreamInterface;
+
 public class SequenceStreamFile extends SequenceStream implements
 		SequenceStreamInterface {
 

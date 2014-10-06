@@ -38,8 +38,8 @@ public class PlayerObservable implements fr.cpe.midi.model.Observable, PlayerInt
 	}
 
 	@Override
-	public void pause() {
-		player.pause();
+	public void togglePause() {
+		player.togglePause();
 		
 	}
 

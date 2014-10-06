@@ -1,4 +1,4 @@
-package fr.cpe.midi.model.sequence;
+package fr.cpe.midi.model;
 
 import javax.sound.midi.Sequence;
 

@@ -8,7 +8,7 @@ import javax.sound.midi.MidiUnavailableException;
 public interface PlayerInterface {
 	
 	public void play() throws MidiUnavailableException, InvalidMidiDataException;
-	public void pause();
+	public void togglePause();
 	public void stop();
 	public boolean isRunning();
 	public void loadSequenceFromUri(URI uri);

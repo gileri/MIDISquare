@@ -1,15 +1,11 @@
 package fr.cpe.midi.model;
 
 import java.net.URI;
-import java.util.ArrayList;
 
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Sequencer;
-
-import fr.cpe.midi.model.sequence.SequenceStreamFactory;
-import fr.cpe.midi.model.sequence.SequenceStreamInterface;
 
 public class Player implements PlayerInterface {
 
@@ -44,8 +40,11 @@ public class Player implements PlayerInterface {
 		sequencer.start();
 	}
 
-	public void pause() {
-		sequencer.stop();
+	public void togglePause() {
+		if(sequencer.isRunning())
+			sequencer.stop();
+		else if(sequencer.isOpen())
+			sequencer.start();
 	}
 
 	public void stop() {

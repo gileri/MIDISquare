@@ -1,13 +1,11 @@
 package fr.cpe.midi.controller;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiUnavailableException;
 
 import fr.cpe.midi.model.Observer;
-import fr.cpe.midi.model.Player;
 import fr.cpe.midi.model.PlayerObservable;
 
 public class MusicPlayerController {
@@ -28,16 +26,11 @@ public class MusicPlayerController {
 	}
 
 	public void pause() {
-		player.pause();
+		player.togglePause();
 	}
 
-	public void loadSequence(String str) {
-		try {
-			player.loadSequenceFromUri(new URI(str));
-		} catch (URISyntaxException e) {
-			System.err.println("URI incorrect");
-			e.printStackTrace();
-		}
+	public void loadSequence(URI uri) {
+		player.loadSequenceFromUri(uri);
 	}
 
 	public boolean canPlaySomething() {

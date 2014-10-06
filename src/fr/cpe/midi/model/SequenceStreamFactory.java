@@ -1,7 +1,13 @@
-package fr.cpe.midi.model.sequence;
+package fr.cpe.midi.model;
 
 import java.net.URI;
 import java.util.HashMap;
+import java.util.List;
+
+import fr.cpe.midi.ClassFinder;
+import fr.cpe.midi.model.sequence.SequenceStreamFile;
+import fr.cpe.midi.model.sequence.SequenceStreamRandom;
+import fr.cpe.midi.model.sequence.SequenceStreamServer;
 
 /**
  * Instancie la "bonne" classe dérivée de SequenceStream
@@ -13,12 +19,9 @@ public class SequenceStreamFactory {
 	private static HashMap<String, Class<?>> sequenceStreamMap = new HashMap<String, Class<?>>();
 
 	public SequenceStreamFactory() {
-		sequenceStreamMap.put(SequenceStreamFile.SCHEME,
-				SequenceStreamFile.class);
-		sequenceStreamMap.put(SequenceStreamServer.SCHEME,
-				SequenceStreamServer.class);
-		sequenceStreamMap.put(SequenceStreamRandom.SCHEME,
-				SequenceStreamRandom.class);
+		sequenceStreamMap.put(SequenceStreamFile.SCHEME, SequenceStreamFile.class);
+		sequenceStreamMap.put(SequenceStreamRandom.SCHEME, SequenceStreamRandom.class);
+		sequenceStreamMap.put(SequenceStreamServer.SCHEME, SequenceStreamServer.class);
 	}
 
 	public static SequenceStreamFactory getInstance() {

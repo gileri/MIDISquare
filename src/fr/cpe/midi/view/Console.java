@@ -16,7 +16,7 @@ public class Console {
 			char c = (char) System.in.read();
 			switch (c) {
 			case 'p':
-				p.pause();
+				p.togglePause();
 				break;
 			default:
 				break;
