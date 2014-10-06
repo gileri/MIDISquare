@@ -23,7 +23,7 @@ public class Visualization extends JPanel implements Observer {
 
 			g.setColor(new Color(r, gr, b));
 
-			int ht = (int) (Math.random() * maxheight );
+			int ht = (int) (Math.random() * maxheight);
 			int width = (int) (Math.random() * maxwidth);
 
 			int x = (int) (Math.random() * maxwidth - width);

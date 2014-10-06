@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiUnavailableException;
@@ -21,13 +22,18 @@ import fr.cpe.midi.model.Observer;
 
 public class Fenetre extends JFrame implements Observer {
 
+	/**
+	 * Merci Eclipse de ne plus me faire ****
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private JPanel container = new JPanel(new BorderLayout());
 	private JPanel topContainer = new JPanel();
-	private JPanel middleContainer = new JPanel();
 
-	private static String[] sources = { "Aucune", "Aléatoire", "Fichier",
-			"Serveur" };
 	private static String[] playPause = { "Play", "Pause" };
+
+	private final static String[] sources = { "Aucune", "Aléatoire", "Fichier",
+			"Serveur" };
 
 	private final JComboBox<String> combo = new JComboBox<String>(sources);
 	private final JButton playPauseButton = new JButton(playPause[0]);
@@ -48,6 +54,7 @@ public class Fenetre extends JFrame implements Observer {
 	}
 
 	private void initComposants() {
+
 		container.setLayout(new BorderLayout());
 		ComboListener comboListener = new ComboListener();
 		ButtonListener buttonListener = new ButtonListener();
@@ -73,7 +80,7 @@ public class Fenetre extends JFrame implements Observer {
 		topContainer.add(stopButton);
 
 		container.add(topContainer, BorderLayout.NORTH);
-		
+
 	}
 
 	@Override

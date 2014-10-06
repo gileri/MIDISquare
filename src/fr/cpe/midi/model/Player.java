@@ -19,55 +19,48 @@ public class Player implements fr.cpe.midi.model.Observable {
 	private ArrayList<Observer> listObserver = new ArrayList<Observer>();
 	protected String status;
 
+	// DP Singleton
+	public static Player getInstance() throws MidiUnavailableException {
+		return (player == null) ? new Player() : player;
+	}
+
 	private Player() throws MidiUnavailableException {
 		status = "Waiting for a song";
 		sequencer = MidiSystem.getSequencer();
-	}
-
-	public static Player getInstance() throws MidiUnavailableException {
-		if (player == null) {
-			player = new Player();
-		}
-		return player;
-	}
-
-	public void play() throws MidiUnavailableException,
-			InvalidMidiDataException {
-		if (sequence == null) {
-			return;
-		}
-		sequencer.open();
-		sequencer.setSequence(sequence.getSequence());
-		sequencer.setTempoInBPM(sequence.getTempo());
-		this.status = "Current song : " + sequence.getDescription();
-		sequencer.start();
-
 	}
 
 	public SequenceStreamInterface getSequence() {
 		return sequence;
 	}
 
+	public void play() throws MidiUnavailableException,
+			InvalidMidiDataException {
+		if (sequence == null)
+			return;
+
+		sequencer.open();
+		sequencer.setSequence(sequence.getSequence());
+		status = sequence.getDescription();
+		sequencer.setTempoInBPM(sequence.getTempo());
+		sequencer.start();
+	}
+
 	public void pause() {
 		sequencer.stop();
 	}
 
-	public boolean isRunning() {
-		if (sequencer != null)
-			return sequencer.isRunning();
-		return false;
-	}
-
 	public void stop() {
-		if (sequence == null) {
-			// System.err.println("Aucune séquence sélectionnée");
+		if (sequence == null)
 			return;
-		}
 		if (sequencer != null) {
 			sequencer.stop();
 			sequencer.close();
 		}
 		this.sequence = null;
+	}
+
+	public boolean isRunning() {
+		return (sequencer != null) ? sequencer.isRunning() : false;
 	}
 
 	/**
@@ -86,13 +79,11 @@ public class Player implements fr.cpe.midi.model.Observable {
 	public void addObserver(Observer obs) {
 		sequencer.addControllerEventListener(obs, new int[] { 127 });
 		this.listObserver.add(obs);
-
 	}
 
 	@Override
 	public void removeObserver(Observer obs) {
 		this.listObserver.remove(obs);
-
 	}
 
 	@Override

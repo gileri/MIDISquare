@@ -18,7 +18,6 @@ public class Programme {
 			MusicPlayerController m = new MusicPlayerController(p);
 			f.setController(m);
 		} catch (MidiUnavailableException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

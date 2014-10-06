@@ -7,6 +7,9 @@ import javax.sound.midi.Sequence;
  * 
  */
 public abstract class SequenceStream {
+
+	public static final String SCHEME = null;
+
 	protected Sequence sequence;
 	protected String description;
 	protected int tempo;

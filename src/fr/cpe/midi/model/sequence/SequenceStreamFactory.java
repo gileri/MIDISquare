@@ -1,6 +1,7 @@
 package fr.cpe.midi.model.sequence;
 
 import java.net.URI;
+import java.util.HashMap;
 
 /**
  * Instancie la "bonne" classe dérivée de SequenceStream
@@ -9,12 +10,20 @@ import java.net.URI;
 public class SequenceStreamFactory {
 
 	private static SequenceStreamFactory sequenceStreamFactory;
+	private static HashMap<String, Class<?>> sequenceStreamMap = new HashMap<String, Class<?>>();
+
+	public SequenceStreamFactory() {
+		sequenceStreamMap.put(SequenceStreamFile.SCHEME,
+				SequenceStreamFile.class);
+		sequenceStreamMap.put(SequenceStreamServer.SCHEME,
+				SequenceStreamServer.class);
+		sequenceStreamMap.put(SequenceStreamRandom.SCHEME,
+				SequenceStreamRandom.class);
+	}
 
 	public static SequenceStreamFactory getInstance() {
-		if (sequenceStreamFactory == null)
-			sequenceStreamFactory = new SequenceStreamFactory();
-
-		return sequenceStreamFactory;
+		return (sequenceStreamFactory == null) ? new SequenceStreamFactory()
+				: sequenceStreamFactory;
 	}
 
 	/**
@@ -22,15 +31,16 @@ public class SequenceStreamFactory {
 	 * de l'URI.
 	 */
 	public SequenceStreamInterface loadSequenceFromUri(URI uri) {
-		switch (uri.getScheme()) {
-		case "file":
-			return new SequenceStreamFile(uri.getPath());
-		case "random":
-			return new SequenceStreamRandom();
-		case "server":
-			return new SequenceStreamServer(uri.getPath());
-		default:
-			return null;
+		String key = uri.getScheme();
+		ClassLoader c = this.getClass().getClassLoader();
+		SequenceStreamInterface s = null;
+		try {
+			s = (SequenceStreamInterface) sequenceStreamMap.get(key)
+					.newInstance();
+			s.setPath(uri.getPath());
+		} catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
 		}
+		return s;
 	}
 }

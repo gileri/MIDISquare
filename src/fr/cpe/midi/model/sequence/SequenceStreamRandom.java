@@ -8,6 +8,8 @@ import javax.sound.midi.Track;
 
 public class SequenceStreamRandom extends SequenceStream implements
 		SequenceStreamInterface {
+	public static final String SCHEME = "random";
+
 	public SequenceStreamRandom() {
 		description = "Random song";
 		try {
@@ -52,5 +54,10 @@ public class SequenceStreamRandom extends SequenceStream implements
 		} catch (Exception e) {
 		}
 		return evenement;
+	}
+
+	@Override
+	public void setPath(String path) {
+
 	}
 }

@@ -5,11 +5,15 @@ import java.io.IOException;
 
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiSystem;
+import javax.sound.midi.Sequence;
 
 public class SequenceStreamFile extends SequenceStream implements
 		SequenceStreamInterface {
 
-	public SequenceStreamFile(String path) {
+	public static final String SCHEME = "file";
+
+	@Override
+	public void setPath(String path) {
 		try {
 			description = path;
 			sequence = MidiSystem.getSequence(new File(path));
