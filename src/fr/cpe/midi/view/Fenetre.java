@@ -1,6 +1,7 @@
 package fr.cpe.midi.view;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,6 +19,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import fr.cpe.midi.controller.MusicPlayerController;
@@ -41,6 +43,7 @@ public class Fenetre extends JFrame implements Observer {
 	private final JButton pauseButton = new JButton("❚❚");
 	private final JButton stopButton = new JButton("■");
 	private final JLabel statusLabel = new JLabel("Aucun morceau en lecture");
+	private final JTextField serverText = new JTextField();
 	private final JButton fileChooserButton = new JButton("Choisir fichier");
 	private final JFileChooser fileChooser = new JFileChooser();
 
@@ -71,8 +74,9 @@ public class Fenetre extends JFrame implements Observer {
 		FileNameExtensionFilter filter = new FileNameExtensionFilter(
 				"Fichiers MIDI", "mid");
 		fileChooser.setFileFilter(filter);
-
 		fileChooserButton.setVisible(false);
+		serverText.setPreferredSize(new Dimension(200, 20));
+		serverText.setVisible(false);
 		
 		combo.addActionListener(new ActionListener() {
 			@Override
@@ -85,6 +89,7 @@ public class Fenetre extends JFrame implements Observer {
 					e1.printStackTrace();
 				}
 				fileChooserButton.setVisible(combo.getSelectedIndex() == 3);
+				serverText.setVisible(combo.getSelectedIndex() == 1);
 			}
 		});
 		fileChooserButton.addActionListener(new ActionListener() {
@@ -102,6 +107,13 @@ public class Fenetre extends JFrame implements Observer {
 		playButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				if(combo.getSelectedIndex()==1) {
+					try {
+						sequenceURI = new URI("server://"+serverText.getText());
+					} catch (URISyntaxException e1) {
+						e1.printStackTrace();
+					}
+				}
 				controler.loadSequence(sequenceURI);
 				try {
 					controler.play();
@@ -125,6 +137,7 @@ public class Fenetre extends JFrame implements Observer {
 
 		topContainer.setLayout(new FlowLayout());
 		topContainer.add(combo);
+		topContainer.add(serverText);
 		topContainer.add(fileChooserButton);
 		topContainer.add(playButton);
 		topContainer.add(pauseButton);
